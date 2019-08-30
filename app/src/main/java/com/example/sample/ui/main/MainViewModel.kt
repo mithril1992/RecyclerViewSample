@@ -2,31 +2,30 @@ package com.example.sample.ui.main
 
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.example.sample.view.*
+import com.example.sample.model.rate.CurrencyPair
+import com.example.sample.model.rate.ZaifRateDAO
+import com.example.sample.view.BindingListViewAdapter
+import com.example.sample.view.MovalbeBindingListAdapter
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class MainViewModel : ViewModel() {
-    companion object {
-        fun createAdapter(): MovalbeBindingListAdapter<Int, MainListViewHolder> {
-            val controller = MainListController()
-            val source = MainListDataSource((0..9).toMutableList())
+    private val controller = MainListController<CurrencyPair>()
+    private val source = MainListDataSource(emptyList<CurrencyPair>().toMutableList())
+    val adapter = BindingListViewAdapter(controller, source)
+    val zaifDao = ZaifRateDAO()
 
-            controller.cellEventListener = listener@{
-                val event = it as? MainListCellEvent ?: return@listener
-                val vh = it.sender as? MainListViewHolder ?: return@listener
-                if(event.status) {
-                    vh.textView.setTextColor(Color.RED)
-                } else {
-                    vh.textView.setTextColor(Color.BLACK)
-                }
+    suspend fun fetchDataAsync() {
+        val currencies = zaifDao.fetchCurrencies().await()
+        supervisorScope {
+            launch(Dispatchers.Main) {
+                source.updateDataset(currencies)
             }
-
-            controller.moveItemEventListener = listener@{ from, to ->
-                source.moveItem(from, to)
-            }
-
-            return MovalbeBindingListAdapter(controller, source)
         }
     }
-
-    val adapter = createAdapter()
 }

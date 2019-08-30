@@ -9,59 +9,34 @@ import android.widget.TextView
 import com.example.sample.R
 import com.example.sample.view.*
 
-
-class MainListCellEvent(sender: MainListViewHolder, val status: Boolean) : CellEvent(sender)
-
-class MainListViewHolder(itemView: View) : BindingListViewHolder<Int>(itemView) {
+class MainListViewHolder<T>(itemView: View) : BindingListViewHolder<T>(itemView) {
     companion object {
-        fun createWith(parent: ViewGroup): MainListViewHolder {
+        fun<T> createWith(parent: ViewGroup): MainListViewHolder<T> {
             val inflater = LayoutInflater.from(parent.context)
             val itemView = inflater.inflate(R.layout.main_list_cell, parent, false)
             return MainListViewHolder(itemView)
         }
     }
 
-    var model: Int? = null
-    val textView: TextView
-    val switch: Switch
+    val textView: TextView = itemView.findViewById(R.id.main_list_cell_text)
 
-    init {
-        textView = itemView.findViewById(R.id.main_list_cell_text)
-        switch = itemView.findViewById(R.id.main_list_cell_switch)
-        switch.setOnCheckedChangeListener { button, status ->
-            model?.also {
-                notifyCellEvent(MainListCellEvent(this, status))
-            }
-        }
-    }
-
-    override fun bindViewModel(cellModel: Int) {
-        model = cellModel
-        if (cellModel < 0) {
-            textView.text = (-cellModel).toString()
-            textView.setTextColor(Color.RED)
-        } else {
-            textView.text = cellModel.toString()
-            textView.setTextColor(Color.BLACK)
-        }
+    override fun bindViewModel(cellModel: T) {
+        textView.text = cellModel.toString()
     }
 }
 
-class MainListController : MovableBindingListController<Int, MainListViewHolder> {
-    var cellEventListener: ((CellEvent) -> Unit) = { _ -> Unit }
-    var moveItemEventListener: (Int, Int) -> Unit = { _, _ -> Unit }
-    override fun onCellEvent(event: CellEvent) = cellEventListener(event)
-    override fun createViewHolder(parent: ViewGroup, viewType: Int) =
-        MainListViewHolder.createWith(parent)
-    override fun omMoved(from: Int, to: Int) = moveItemEventListener.invoke(from, to)
+class MainListController<T> : BindingListController<T, MainListViewHolder<T>> {
+    override fun onCellEvent(event: CellEvent) = Unit
+    override fun createViewHolder(parent: ViewGroup, viewType: Int) = MainListViewHolder.createWith<T>(parent)
 }
 
-class MainListDataSource(private val list: MutableList<Int>) : BindingListDataSource<Int>() {
-    override val size = list.size
+class MainListDataSource<T>(private var list: MutableList<T>) : BindingListDataSource<T>() {
+    override val size
+        get() = list.size
     override fun get(position: Int) = list.get(position)
-    fun moveItem(from: Int, to: Int) {
-        val item = list.removeAt(from)
-        list.add(to, item)
-        onItemMoved(from, to)
+
+    fun updateDataset(newList: List<T>) {
+        list = newList.toMutableList()
+        onDataSetChanged()
     }
 }
