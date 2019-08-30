@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -11,4 +10,11 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/main_recycler_view"/>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.core.widget.ContentLoadingProgressBar
+        style="@android:style/Widget.Material.ProgressBar"
+        android:id="@+id/main_list_progress_circular"
+        android:visibility="invisible"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>
