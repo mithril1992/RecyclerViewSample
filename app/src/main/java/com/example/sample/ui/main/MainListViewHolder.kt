@@ -20,7 +20,7 @@ class MainListViewHolder<T>(itemView: View) : BindingListViewHolder<T>(itemView)
 
     val textView: TextView = itemView.findViewById(R.id.main_list_cell_text)
 
-    override fun bindViewModel(cellModel: T) {
+    override fun bindViewModel(cellModel: T, recycled: Boolean) {
         textView.text = cellModel.toString()
     }
 }

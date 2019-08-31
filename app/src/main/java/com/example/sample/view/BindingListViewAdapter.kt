@@ -23,7 +23,13 @@ open class BindingListViewAdapter<T, VH : BindingListViewHolder<T>>(
     override fun getItemCount() = dataSource.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bindViewModel(dataSource[position])
+        holder.bindViewModel(dataSource[position], holder.recycled)
+        holder.recycled = false
+    }
+
+    override fun onViewRecycled(holder: VH) {
+        super.onViewRecycled(holder)
+        holder.recycled = true
     }
 }
 
@@ -54,8 +60,9 @@ open class CellEvent(val sender: RecyclerView.ViewHolder)
 
 abstract class BindingListViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     internal var cellEventListener: ((CellEvent) -> Unit)? = null
+    internal var recycled: Boolean = false
 
-    abstract fun bindViewModel(cellModel: T)
+    abstract fun bindViewModel(cellModel: T, recycled: Boolean)
 
     protected open fun notifyCellEvent(cellEvent: CellEvent) {
         cellEventListener?.invoke(cellEvent)
