@@ -35,7 +35,7 @@ class MainListDataSource<T>(private var list: MutableList<T>) : BindingListDataS
         get() = list.size
     override fun get(position: Int) = list.get(position)
 
-    fun updateDataset(newList: List<T>) {
+    fun updateDataSet(newList: List<T>) {
         list = newList.toMutableList()
         onDataSetChanged()
     }
