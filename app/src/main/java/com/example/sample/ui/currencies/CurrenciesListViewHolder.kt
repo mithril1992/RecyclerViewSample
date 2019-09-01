@@ -11,7 +11,7 @@ class CurrenciesListViewHolder<T>(itemView: View) : BindingListViewHolder<T>(ite
     companion object {
         fun<T> createWith(parent: ViewGroup): CurrenciesListViewHolder<T> {
             val inflater = LayoutInflater.from(parent.context)
-            val itemView = inflater.inflate(R.layout.main_list_cell, parent, false)
+            val itemView = inflater.inflate(R.layout.currency_list_cell, parent, false)
             return CurrenciesListViewHolder(itemView)
         }
     }
