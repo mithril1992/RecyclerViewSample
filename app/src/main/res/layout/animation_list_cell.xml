@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="24dp">
+    android:layout_height="32dp">
     <ImageView
         android:id="@+id/animation_list_cell_icon"
         android:layout_width="18dp"
@@ -12,7 +12,27 @@
         android:layout_gravity="center|start"/>
     <TextView
         android:id="@+id/animation_list_cell_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"/>
+    <FrameLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|end">
+        <ImageView
+            android:id="@+id/animation_list_cell_drag_handle"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"/>
+        <Button
+            android:visibility="invisible"
+            android:text="@string/animation_list_cell_delete_button"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark"
+            android:id="@+id/animation_list_cell_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 </LinearLayout>

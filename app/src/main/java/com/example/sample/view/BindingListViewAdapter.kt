@@ -27,6 +27,8 @@ open class BindingListViewAdapter<T, VH : BindingListViewHolder<T>>(
         holder.recycled = false
     }
 
+    on
+
     override fun onViewRecycled(holder: VH) {
         super.onViewRecycled(holder)
         holder.recycled = true

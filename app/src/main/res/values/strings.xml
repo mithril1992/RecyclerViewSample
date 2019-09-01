@@ -3,4 +3,5 @@
     <string name="main_add_item">add Item</string>
     <string name="main_to_animation_button">Animation</string>
     <string name="main_to_currencies_button_title">Currencies</string>
+    <string name="animation_list_cell_delete_button">Delete</string>
 </resources>

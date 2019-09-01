@@ -9,7 +9,13 @@ class AnimationListViewModel : ViewModel() {
         if(it is AnimationListViewHolder.OnTouchSwitchEvent) {
             val index = it.sender.adapterPosition
             val item = source[index]
-            source.updateItem(Check(item.text, it.newState), index)
+//            source.updateItem(Check(item.text, it.newState), index)
+            return@AnimationListController
+        }
+        if(it is AnimationListViewHolder.OnTouchDeleteButtonEvent) {
+            val index = it.sender.adapterPosition
+            source.deleteItem(index)
+            return@AnimationListController
         }
     }
     private val source = AnimationListDataSource(mutableListOf())
