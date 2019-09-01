@@ -62,9 +62,8 @@ class AnimationListViewHolder(itemView: View): BindingListViewHolder<Check>(item
     }
 
     fun switchOn(animation: Boolean) {
-        switch.rotation = 90f
-
         if(!animation) {
+            switch.rotation = 90f
             return
         }
 
@@ -72,14 +71,14 @@ class AnimationListViewHolder(itemView: View): BindingListViewHolder<Check>(item
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f)
         rotAnimation.duration = 200
+        rotAnimation.fillAfter = true
 
-        rotAnimation.start()
+        switch.startAnimation(rotAnimation)
     }
 
     fun switchOff(animation: Boolean) {
-        switch.rotation = 0f
-
         if(!animation) {
+            switch.rotation = 0f
             return
         }
 
@@ -87,8 +86,9 @@ class AnimationListViewHolder(itemView: View): BindingListViewHolder<Check>(item
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f)
         rotAnimation.duration = 200
+        rotAnimation.fillAfter = true
 
-        rotAnimation.start()
+        switch.startAnimation(rotAnimation)
     }
 }
 
