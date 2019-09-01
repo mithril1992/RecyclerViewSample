@@ -17,10 +17,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CurrenciesListFragment : Fragment() {
-    companion object {
-        fun newInstance() = CurrenciesListFragment()
-    }
-
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
 
@@ -43,10 +39,6 @@ class CurrenciesListFragment : Fragment() {
         recyclerView.addItemDecoration(decorater)
 
         progressBar = view.findViewById(R.id.currencies_list_progress_circular)
-
-        activity?.actionBar?.also {
-            it.title = "Currencies"
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

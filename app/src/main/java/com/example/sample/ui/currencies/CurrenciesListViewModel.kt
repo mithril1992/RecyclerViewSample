@@ -11,7 +11,7 @@ import kotlinx.coroutines.supervisorScope
 class CurrenciesListViewModel : ViewModel() {
     private val controller = CurrenciesListController<CurrencyPair>()
     private val source =
-        CurrenciesListDataSource(emptyList<CurrencyPair>().toMutableList())
+        CurrenciesListDataSource(mutableListOf<CurrencyPair>())
     val adapter = BindingListViewAdapter(controller, source)
     val zaifDao = ZaifRateDAO()
     var loading = false
