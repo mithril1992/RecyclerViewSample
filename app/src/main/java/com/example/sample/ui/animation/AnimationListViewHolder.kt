@@ -44,7 +44,7 @@ class AnimationListViewHolder(itemView: View): BindingListViewHolder<Check>(item
                 return@setOnTouchListener true
             }
 
-            val currentState = model.isDeleting
+            val currentState = model.switchState
             notifyCellEvent(OnTouchSwitchEvent(this@AnimationListViewHolder, !currentState))
 
             return@setOnTouchListener true
@@ -54,7 +54,7 @@ class AnimationListViewHolder(itemView: View): BindingListViewHolder<Check>(item
     override fun bindViewModel(cellModel: Check, recycled: Boolean) {
         model = cellModel
         text.text = cellModel.text
-        if(cellModel.isDeleting) {
+        if(cellModel.switchState) {
             switchOn(!recycled)
         } else {
             switchOff(!recycled)

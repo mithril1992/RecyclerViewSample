@@ -1,3 +1,3 @@
 package com.example.sample.model.check
 
-data class Check(val text: String, val isDeleting: Boolean)
+class Check(val text: String, var switchState: Boolean)
