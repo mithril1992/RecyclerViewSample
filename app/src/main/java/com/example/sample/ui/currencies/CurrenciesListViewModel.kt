@@ -1,14 +1,14 @@
-package com.example.sample.ui.main
+package com.example.sample.ui.currencies
 
 import androidx.lifecycle.ViewModel
 import com.example.sample.model.rate.CurrencyPair
 import com.example.sample.model.rate.ZaifRateDAO
-import com.example.sample.ui.currencies.CurrenciesListController
-import com.example.sample.ui.currencies.CurrenciesListDataSource
 import com.example.sample.view.BindingListViewAdapter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
-class MainViewModel : ViewModel() {
+class CurrenciesListViewModel : ViewModel() {
     private val controller = CurrenciesListController<CurrencyPair>()
     private val source =
         CurrenciesListDataSource(emptyList<CurrencyPair>().toMutableList())
@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
             onLoadingChanged(value)
         }
 
-    var onLoadingChanged: (Boolean)->Unit = { _ -> Unit }
+    var onLoadingChanged: (Boolean) -> Unit = { _ -> Unit }
 
     suspend fun fetchDataAsync() {
         supervisorScope {
