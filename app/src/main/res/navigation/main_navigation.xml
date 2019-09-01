@@ -8,12 +8,20 @@
         android:name="com.example.sample.ui.main.MainFragment"
         android:label="Main">
         <action
-            android:id="@+id/from_main_to_currencies_list"
+            android:id="@+id/from_main_to_currencies"
             app:destination="@id/currencies_list"/>
+        <action
+            android:id="@+id/from_main_to_animation_list"
+            app:destination="@+id/animation_list"/>
     </fragment>
     <fragment
         android:id="@+id/currencies_list"
         android:name="com.example.sample.ui.currencies.CurrenciesListFragment"
         android:label="Currencies">
+    </fragment>
+    <fragment
+        android:id="@+id/animation_list"
+        android:name="com.example.sample.ui.animation.AnimationListFragment"
+        android:label="Animation">
     </fragment>
 </navigation>

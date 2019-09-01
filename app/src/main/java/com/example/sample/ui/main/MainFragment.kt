@@ -7,18 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ProgressBar
-import androidx.annotation.DrawableRes
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.sample.R
-import com.example.sample.view.DefaultItemTouchHelperCallback
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import com.example.sample.view.findViewById
 
 class MainFragment : Fragment() {
     companion object {
@@ -33,9 +24,17 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mainButton = view.findViewById<Button>(R.id.main_button)
-        mainButton.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.from_main_to_currencies_list)
+
+        view.findViewById<Button>(R.id.main_to_currencies_button) {
+            setOnClickListener {
+                Navigation.findNavController(it).navigate(R.id.from_main_to_currencies)
+            }
+        }
+
+        view.findViewById<Button>(R.id.main_to_animation_button) {
+            setOnClickListener {
+                Navigation.findNavController(it).navigate(R.id.from_main_to_animation_list)
+            }
         }
     }
 
